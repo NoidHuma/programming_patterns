@@ -31,4 +31,21 @@ end
 
 puts "Введите число:"
 number = gets.to_i
-puts "Сумма простых делителей числа = #{simple_divisors_sum(number)}"
+puts "Сумма простых делителей числа: #{simple_divisors_sum(number)}"
+
+# Метод 2. Найти количество нечетных цифр числа, больших 3.
+
+def count_uneven_greater_three(number)
+	count = 0
+	while number != 0
+		digit = number % 10
+		count += 1 if (digit > 3 and digit % 2 != 0)
+		number /= 10
+	end
+	return count
+end
+
+puts "Введите число:"
+number = gets.to_i
+puts "Количество нечетных цифр числа, больших 3: #{count_uneven_greater_three(number)}"
+
