@@ -25,8 +25,8 @@ def simple_divisors_sum(number)
 	for div in divisors
 		num = num_divisors(div)
 		sum += div if num.length == 2
-  end
-  return sum
+	end
+	return sum
 end
 
 puts "Введите число:"
@@ -49,3 +49,30 @@ puts "Введите число:"
 number = gets.to_i
 puts "Количество нечетных цифр числа, больших 3: #{count_uneven_greater_three(number)}"
 
+# Метод 3. Найти произведение таких делителей числа, сумма цифр которых меньше, чем сумма цифр исходного числа.
+
+# Сумма цифр числа
+def digit_sum(number)
+	sum = 0
+	while number != 0
+		digit = number % 10
+		sum += digit
+		number /= 10
+	end
+	return sum
+end
+
+def greater_sum_digits_divisors_multi(number)
+	multi = 1
+	divisors = num_divisors(number)
+	for div in divisors
+		num = num_divisors(div)
+		multi *= div if digit_sum(div) < digit_sum(number)
+	end
+	return multi
+end
+
+puts "Введите число:"
+number = gets.to_i
+puts "Произведение таких делителей числа, сумма цифр которых меньше, чем сумма цифр исходного числа: #{greater_sum_digits_divisors_multi(number)}"
+	
