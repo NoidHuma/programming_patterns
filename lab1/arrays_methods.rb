@@ -10,3 +10,14 @@ def min_elem(arr)
 	return min
 end
 
+# Написать метод, который находит номер первого положительного элемента массива
+
+def first_positive_elem(arr)
+  for i in 0...arr.size
+    if arr[i] > 0
+      return i
+    end
+  end
+  return nil
+end
+
