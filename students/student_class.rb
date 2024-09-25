@@ -84,5 +84,8 @@ class Student
 		@git = git
 	end
 
-	
+	# Делаем to_s для этого класса
+	def to_s
+		student_str = "ID: " + @id.to_s + "\nSurname: " + @surname.to_s + "\nName: " + @name.to_s + "\nPatronymic: " + @patronymic.to_s + "\nPhone: " + @phone.to_s + "\nTelegram: " + @telegram.to_s + "\nEmail: " + @email.to_s + "\nGit: " + @git.to_s
+	end
 end
