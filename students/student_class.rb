@@ -9,7 +9,7 @@ class Student
 		@surname = surname
 		@name = name
 		@patronymic = patronymic
-		@phone = phone
+		self.phone = phone
 		@telegram = telegram
 		@email = email
 		@git = git
@@ -19,4 +19,19 @@ class Student
 	def to_s
 		student_str = "ID: " + @id.to_s + "\nSurname: " + @surname.to_s + "\nName: " + @name.to_s + "\nPatronymic: " + @patronymic.to_s + "\nPhone: " + @phone.to_s + "\nTelegram: " + @telegram.to_s + "\nEmail: " + @email.to_s + "\nGit: " + @git.to_s
 	end
+	
+	# Проверка правильности формата строки с телефоном
+	def self.valid_phone?(phone)
+		phone =~ /^(?:\+7|8)\d{10}$/
+	end
+	
+	# Геттер для изменения телефона
+	def phone=(phone)
+		if phone.nil? || self.class.valid_phone?(phone)
+			@phone = phone
+		else
+			raise ArgumentError, "Неверный формат телефонного номера"
+		end
+	end
+  
 end
