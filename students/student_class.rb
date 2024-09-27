@@ -59,7 +59,7 @@ class Student
 	end
 	
 	# Геттер для изменения телефона
-	def phone=(phone)
+	private def phone=(phone)
 		if phone.nil? || self.class.valid_phone?(phone)
 			@phone = phone
 		else
@@ -73,7 +73,7 @@ class Student
 	end
 	
 	# Геттер для изменения телеграма
-	def telegram=(telegram)
+	private def telegram=(telegram)
 		if telegram.nil? || self.class.valid_telegram?(telegram)
 			@telegram = telegram
 		else
@@ -87,7 +87,7 @@ class Student
 	end
 	
 	# Геттер для изменения email
-	def email=(email)
+	private def email=(email)
 		if email.nil? || self.class.valid_email?(email)
 			@email = email
 		else
@@ -101,7 +101,7 @@ class Student
 	end
 	
 	# Геттер для изменения git
-	def git=(git)
+	private def git=(git)
 		if git.nil? || self.class.valid_git?(git)
 			@git = git
 		else
@@ -110,13 +110,22 @@ class Student
 	end
 	
 	# проверка наличия гит
-	def is_git?()
+	def is_git?
 		!@git.nil?
 	end
 	
 	# проверка наличия хотя бы одного контакта
-	def is_contacts?()
+	def is_contacts?
 		!(@phone.nil? && @telegram.nil? && @email.nil?)
 	end
+	
+	# метод для изменения полей контактов
+	def set_contacts(phone: nil, telegram: nil, email: nil, git: nil)
+		self.phone = phone if !phone.nil? 
+		self.telegram = telegram if !telegram.nil? 
+		self.email = email if !email.nil? 
+		self.git = git if !git.nil? 
+	end
+	
 	
 end
