@@ -187,9 +187,9 @@ class Student
 	def get_contact()
 		if is_contacts?
 			contacts = [
-			["phone:", @phone],
-			["telegram:", @telegram],
-			["email:", @email]
+			["phone -", @phone],
+			["telegram -", @telegram],
+			["email -", @email]
 		].select { |_, value| !value.nil? && !value.empty? }
 		contacts_output = contacts[0].join(" ")
 		return contacts_output
