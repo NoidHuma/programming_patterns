@@ -1,12 +1,11 @@
 class Student
 
 	# аксессор
-	attr_accessor :id
-	attr_reader :surname, :name, :patronymic, :phone, :telegram, :email, :git
+	attr_reader :id, :surname, :name, :patronymic, :phone, :telegram, :email, :git
 
 	# конструктор
 	def initialize(id:, surname:, name:, patronymic:, phone: nil, telegram: nil, email: nil, git: nil)
-		@id = id
+		self.id = id
 		self.surname = surname
 		self.name = name
 		self.patronymic = patronymic
@@ -18,16 +17,19 @@ class Student
 	
 	# Новый конструктор, принимающий строку
 	def self.initialize_from_string(input_string)
+	    raise ArgumentError, "Входная строка не должна быть пустой" if input_string.nil? || input_string.strip.empty?
 		# Парсим строку
 		params = {}
 		input_string.split(', ').each do |pair|
-			key, value = pair.split(': ')
+			key_value = pair.split(': ')
+			raise ArgumentError, "Некорректный формат пары Поле-Значение #{pair}" if key_value.length != 2
+			key, value = key_value
 			params[key.to_sym] = value
 		end
 
     # Вызываем стандартный конструктор с распарсенными параметрами
 		new(
-			id: params[:id].to_i,
+			id: params[:id],
 			surname: params[:surname],
 			name: params[:name],
 			patronymic: params[:patronymic],
@@ -43,6 +45,15 @@ class Student
 		student_str = "ID: #{@id}\nName: #{@name}\nSurname: #{@surname}\nPatronymic: #{@patronymic}\nPhone: #{@phone}\nTelegram: #{@telegram}\nEmail: #{@email}\nGit: #{@git}\n"
 	end
 	
+	# Геттер для изменения id
+	def id=(id)
+		if id.nil? 
+			raise ArgumentError, "ID - обязательное поле"
+		else
+			@id = id
+		end
+	end
+	
 	# Проверка корректности формата строки с фамилией/именем/отчеством
 	def self.valid_name?(name)
 		name =~ /^[а-яА-ЯёЁa-zA-Z]+$/
@@ -50,7 +61,10 @@ class Student
 	
 	# Геттер для изменения фамилии
 	def surname=(surname)
-		if surname.nil? || self.class.valid_name?(surname)
+		if surname.nil? 
+			raise ArgumentError, "Фамилия - обязательное поле"
+		end
+		if self.class.valid_name?(surname)
 			@surname = surname
 		else
 			raise ArgumentError, "Некорректный формат фамилии"
@@ -59,7 +73,10 @@ class Student
 	
 	# Геттер для изменения имени
 	def name=(name)
-		if name.nil? || self.class.valid_name?(name)
+		if name.nil? 
+			raise ArgumentError, "Имя - обязательное поле"
+		end
+		if self.class.valid_name?(name)
 			@name = name
 		else
 			raise ArgumentError, "Некорректный формат имени"
@@ -68,7 +85,10 @@ class Student
 	
 	# Геттер для изменения отчества
 	def patronymic=(patronymic)
-		if patronymic.nil? || self.class.valid_name?(patronymic)
+		if patronymic.nil? 
+			raise ArgumentError, "Отчество - обязательное поле"
+		end
+		if self.class.valid_name?(patronymic)
 			@patronymic = patronymic
 		else
 			raise ArgumentError, "Некорректный формат отчества"
