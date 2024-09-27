@@ -203,9 +203,13 @@ class Student
 		info_string = get_fullname
 		if is_contacts?
 			info_string += ", " + get_contact
+		else
+			info_string += ", contacts are not specified"
 		end
 		if is_git?
 			info_string += ", " + get_git
+		else
+			info_string += ", Git is not specified"
 		end
 		return info_string
 	end
