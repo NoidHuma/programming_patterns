@@ -108,4 +108,15 @@ class Student
 			raise ArgumentError, "Некорректный формат ссылки на github"
 		end
 	end
+	
+	# проверка наличия гит
+	def is_git?()
+		!@git.nil?
+	end
+	
+	# проверка наличия хотя бы одного контакта
+	def is_contacts?()
+		!(@phone.nil? && @telegram.nil? && @email.nil?)
+	end
+	
 end
