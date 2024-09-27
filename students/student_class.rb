@@ -15,10 +15,32 @@ class Student
 		self.email = email
 		self.git = git
 	end
+	
+	# Новый конструктор, принимающий строку
+	def self.initialize_from_string(input_string)
+		# Парсим строку
+		params = {}
+		input_string.split(', ').each do |pair|
+			key, value = pair.split(': ')
+			params[key.to_sym] = value
+		end
+
+    # Вызываем стандартный конструктор с распарсенными параметрами
+		new(
+			id: params[:id].to_i,
+			surname: params[:surname],
+			name: params[:name],
+			patronymic: params[:patronymic],
+			phone: params[:phone],
+			telegram: params[:telegram],
+			email: params[:email],
+			git: params[:git]
+		)
+	end
 
 	# Делаем to_s для этого класса
 	def to_s
-		student_str = "ID: #{id}\nName: #{name}\nSurname: #{surname}\nPatronymic: #{patronymic}\nPhone: #{phone}\nTelegram: #{@telegram}\nEmail: #{@email}\nGit: #{@git}\n"
+		student_str = "ID: #{@id}\nName: #{@name}\nSurname: #{@surname}\nPatronymic: #{@patronymic}\nPhone: #{@phone}\nTelegram: #{@telegram}\nEmail: #{@email}\nGit: #{@git}\n"
 	end
 	
 	# Проверка корректности формата строки с фамилией/именем/отчеством
