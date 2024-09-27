@@ -169,5 +169,45 @@ class Student
 		self.git = git if !git.nil? 
 	end
 	
+	# получить фамилию и инициалы
+	def get_fullname()
+		fullname = "#{@surname} #{@name[0]}.#{@patronymic[0]}."
+	end
+	
+	# получить git
+	def get_git()
+		if is_git?
+			return "#{@git}"
+		else
+			raise ArgumentError, "Git не указан"
+		end
+	end
+	
+	# получить контакт
+	def get_contact()
+		if is_contacts?
+			contacts = [
+			["phone:", @phone],
+			["telegram:", @telegram],
+			["email:", @email]
+		].select { |_, value| !value.nil? && !value.empty? }
+		contacts_output = contacts[0].join(" ")
+		return contacts_output
+		else
+			raise ArgumentError, "Контакты не указаны"
+		end
+	end	
+	
+	# краткая информация
+	def get_info()
+		info_string = get_fullname
+		if is_contacts?
+			info_string += ", " + get_contact
+		end
+		if is_git?
+			info_string += ", " + get_git
+		end
+		return info_string
+	end
 	
 end
