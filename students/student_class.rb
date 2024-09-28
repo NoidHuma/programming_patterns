@@ -45,7 +45,7 @@ class Student
 		student_str = "ID: #{@id}\nName: #{@name}\nSurname: #{@surname}\nPatronymic: #{@patronymic}\nPhone: #{@phone}\nTelegram: #{@telegram}\nEmail: #{@email}\nGit: #{@git}\n"
 	end
 	
-	# Геттер для изменения id
+	# Сеттер для изменения id
 	def id=(id)
 		if id.nil? 
 			raise ArgumentError, "ID - обязательное поле"
@@ -59,7 +59,7 @@ class Student
 		name =~ /^[а-яА-ЯёЁa-zA-Z]+$/
 	end
 	
-	# Геттер для изменения фамилии
+	# Сеттер для изменения фамилии
 	def surname=(surname)
 		if surname.nil? 
 			raise ArgumentError, "Фамилия - обязательное поле"
@@ -71,7 +71,7 @@ class Student
 		end
 	end
 	
-	# Геттер для изменения имени
+	# Сеттер для изменения имени
 	def name=(name)
 		if name.nil? 
 			raise ArgumentError, "Имя - обязательное поле"
@@ -83,7 +83,7 @@ class Student
 		end
 	end
 	
-	# Геттер для изменения отчества
+	# Сеттер для изменения отчества
 	def patronymic=(patronymic)
 		if patronymic.nil? 
 			raise ArgumentError, "Отчество - обязательное поле"
@@ -100,7 +100,7 @@ class Student
 		phone =~ /^(?:\+7|8)\d{10}$/
 	end
 	
-	# Геттер для изменения телефона
+	# Сеттер для изменения телефона
 	private def phone=(phone)
 		if phone.nil? || self.class.valid_phone?(phone)
 			@phone = phone
@@ -114,7 +114,7 @@ class Student
 		telegram =~ /^(https:\/\/)?t\.me\/[a-zA-Z0-9_]{5,32}$/
 	end
 	
-	# Геттер для изменения телеграма
+	# Сеттер для изменения телеграма
 	private def telegram=(telegram)
 		if telegram.nil? || self.class.valid_telegram?(telegram)
 			@telegram = telegram
@@ -128,7 +128,7 @@ class Student
 		email =~ /^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/
 	end
 	
-	# Геттер для изменения email
+	# Сеттер для изменения email
 	private def email=(email)
 		if email.nil? || self.class.valid_email?(email)
 			@email = email
@@ -142,7 +142,7 @@ class Student
 		git =~ /^(https:\/\/)?github\.com\/[a-zA-Z0-9_-]{1,39}$/
 	end
 	
-	# Геттер для изменения git
+	# Сеттер для изменения git
 	private def git=(git)
 		if git.nil? || self.class.valid_git?(git)
 			@git = git
