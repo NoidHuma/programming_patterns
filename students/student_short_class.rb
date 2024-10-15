@@ -1,4 +1,4 @@
-load 'student_class.rb'
+require_relative 'student_class.rb'
 
 class Student_short
 

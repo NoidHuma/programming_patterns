@@ -1,4 +1,4 @@
-load 'validator.rb'
+require_relative 'validator.rb'
 
 class Student
 
