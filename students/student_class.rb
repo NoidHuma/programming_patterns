@@ -4,8 +4,8 @@ class Student
 	attr_reader :id, :surname, :name, :patronymic, :phone, :telegram, :email, :git
 
 	# конструктор
-	def initialize(id:, surname:, name:, patronymic:, phone: nil, telegram: nil, email: nil, git: nil)
-		self.id = id
+	def initialize(id: nil, surname:, name:, patronymic:, phone: nil, telegram: nil, email: nil, git: nil)
+		@id = id
 		self.surname = surname
 		self.name = name
 		self.patronymic = patronymic
@@ -43,15 +43,6 @@ class Student
 	# Делаем to_s для этого класса
 	def to_s
 		student_str = "ID: #{@id}\nName: #{@name}\nSurname: #{@surname}\nPatronymic: #{@patronymic}\nPhone: #{@phone}\nTelegram: #{@telegram}\nEmail: #{@email}\nGit: #{@git}\n"
-	end
-	
-	# Сеттер для изменения id
-	def id=(id)
-		if id.nil? 
-			raise ArgumentError, "ID - обязательное поле"
-		else
-			@id = id
-		end
 	end
 	
 	# Проверка корректности формата строки с фамилией/именем/отчеством
@@ -162,11 +153,10 @@ class Student
 	end
 	
 	# метод для изменения полей контактов
-	def set_contacts(phone: nil, telegram: nil, email: nil, git: nil)
+	def set_contacts(phone: nil, telegram: nil, email: nil)
 		self.phone = phone if !phone.nil? 
 		self.telegram = telegram if !telegram.nil? 
 		self.email = email if !email.nil? 
-		self.git = git if !git.nil? 
 	end
 	
 	# получить фамилию и инициалы
@@ -175,11 +165,11 @@ class Student
 	end
 	
 	# получить git
-	def get_git()
+	def git
 		if is_git?
 			return "#{@git}"
 		else
-			raise ArgumentError, "Git не указан"
+			return "Git is not specified"
 		end
 	end
 	
@@ -194,23 +184,15 @@ class Student
 		contacts_output = contacts[0].join(" ")
 		return contacts_output
 		else
-			raise ArgumentError, "Контакты не указаны"
+			return "Contacts are not specified"
 		end
 	end	
 	
 	# краткая информация
 	def get_info()
 		info_string = get_fullname
-		if is_contacts?
-			info_string += ", " + get_contact
-		else
-			info_string += ", contacts are not specified"
-		end
-		if is_git?
-			info_string += ", " + get_git
-		else
-			info_string += ", Git is not specified"
-		end
+		info_string += ", " + get_contact
+		info_string += ", " + git
 		return info_string
 	end
 	
