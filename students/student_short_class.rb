@@ -32,9 +32,14 @@ class StudentShort < StudentBase
 	end
 	
 	def get_info()
-		info_string = @fullname
-		info_string += ", " + @contact
-		info_string += ", " + @git
+		info_string = "Fullname = " + @fullname
+		if has_contact?
+			info_string += ", Contact = " + @contact
+		end
+		if has_git?
+			info_string += ", Git = " + @git
+		end
+		return info_string
 	end
 	
 	def to_s
