@@ -42,9 +42,7 @@ class StudentShort < StudentBase
 		return info_string
 	end
 	
-	def to_s
-		student_str = "ID: #{@id}\nFull name: #{@fullname}\nContact: #{@contact}\nGit: #{@git}\n"
-	end
+
 	
 end
 

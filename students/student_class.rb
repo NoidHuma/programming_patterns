@@ -40,9 +40,7 @@ class Student < StudentBase
 	end
 
 	# Делаем to_s для этого класса
-	def to_s
-		student_str = "ID: #{@id}\nName: #{@name}\nSurname: #{@surname}\nPatronymic: #{@patronymic}\nPhone: #{@phone}\nTelegram: #{@telegram}\nEmail: #{@email}\nGit: #{@git}\n"
-	end
+
 	
 	# Сеттер для изменения фамилии
 	def surname=(surname)

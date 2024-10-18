@@ -3,8 +3,6 @@ require_relative 'validator.rb'
 class StudentBase
 
 	attr_reader :id,:git
-	
-	protected
 
 	def initialize(id: nil, git: nil)
 		@id = id
@@ -28,7 +26,18 @@ class StudentBase
 	end
   
 	def to_s
-		raise NotImplementedError, "Метод to_s должен быть реализован"
+		student_str = ""
+		student_str += "ID = #{@id}\n" if @id
+		student_str += "Surname = #{@surname}\n" if @surname
+		student_str += "Name = #{@name}\n" if @name
+		student_str += "Patronymic = #{@patronymic}\n" if @patronymic
+		student_str += "Fullname = #{@fullname}\n" if @fullname
+		student_str += "Phone = #{@phone}\n" if @phone
+		student_str += "Telegram = #{@telegram}\n" if @telegram
+		student_str += "Email = #{@email}\n" if @email
+		student_str += "Contact = #{@contact}\n" if @contact
+		student_str += "Git = #{@git}\n" if @git
+		return student_str
 	end
   
 end
