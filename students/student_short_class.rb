@@ -1,8 +1,8 @@
-require_relative 'student_class.rb'
+require_relative 'student_base_class.rb'
 
-class Student_short
+class StudentShort < StudentBase
 
-	attr_reader :id, :fullname, :contact, :git
+	attr_reader :fullname, :contact
   
 	# конструктор, параметр либо объект экземпляр класса student, либо id и строка с краткой информацией
 	def initialize(student: nil, id: nil, student_info: nil)
@@ -15,11 +15,17 @@ class Student_short
 		end
 	end
   
-	def parse_student_info(student_info)
+	private def parse_student_info(student_info)
 		info = student_info.split(", ")
 		@fullname = info[0]
 		@contact = info[1]
 		@git = info[2]
+	end
+	
+	def get_info()
+		info_string = @fullname
+		info_string += ", " + @contact
+		info_string += ", " + @git
 	end
 	
 	def to_s
@@ -27,3 +33,4 @@ class Student_short
 	end
 	
 end
+

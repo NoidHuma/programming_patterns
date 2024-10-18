@@ -1,20 +1,17 @@
-require_relative 'validator.rb'
+require_relative 'student_base_class.rb'
 
-class Student
+class Student < StudentBase
 
 	# аксессор
-	attr_reader :id, :surname, :name, :patronymic, :phone, :telegram, :email, :git
+	attr_reader :surname, :name, :patronymic, :phone, :telegram, :email
 
 	# конструктор
 	def initialize(id: nil, surname:, name:, patronymic:, phone: nil, telegram: nil, email: nil, git: nil)
-		@id = id
+		super(id:id, git:git)
 		self.surname = surname
 		self.name = name
 		self.patronymic = patronymic
-		self.phone = phone
-		self.telegram = telegram
-		self.email = email
-		self.git = git
+		set_contacts(phone: phone, telegram: telegram, email: email) 
 	end
 	
 	# Новый конструктор, принимающий строку
@@ -119,16 +116,6 @@ class Student
 		end
 	end
 	
-	# проверка наличия гит
-	def is_git?
-		!@git.nil?
-	end
-	
-	# проверка наличия хотя бы одного контакта
-	def is_contacts?
-		!(@phone.nil? && @telegram.nil? && @email.nil?)
-	end
-	
 	# метод для изменения полей контактов
 	def set_contacts(phone: nil, telegram: nil, email: nil)
 		self.phone = phone if !phone.nil?
@@ -143,7 +130,7 @@ class Student
 	
 	# получить git
 	def git
-		if is_git?
+		if has_git?
 			return "#{@git}"
 		else
 			return "Git is not specified"
@@ -152,7 +139,7 @@ class Student
 	
 	# получить контакт
 	def get_contact()
-		if is_contacts?
+		if has_contact?
 			contacts = [
 			["phone -", @phone],
 			["telegram -", @telegram],
@@ -170,7 +157,6 @@ class Student
 		info_string = get_fullname
 		info_string += ", " + get_contact
 		info_string += ", " + git
-		return info_string
 	end
 	
 end
