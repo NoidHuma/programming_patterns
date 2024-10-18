@@ -31,6 +31,7 @@ class StudentShort < StudentBase
 		end
 	end
 	
+	# строка с краткой информацией
 	def get_info()
 		info_string = "Fullname = " + @fullname
 		if has_contact?
@@ -41,8 +42,6 @@ class StudentShort < StudentBase
 		end
 		return info_string
 	end
-	
-
 	
 end
 

@@ -4,27 +4,33 @@ class StudentBase
 
 	attr_reader :id,:git
 
+	# конструктор
 	def initialize(id: nil, git: nil)
 		@id = id
 		self.git = git
 	end
 
+	# есть ли гит и контакт
 	def validate?()
 		return (has_git?() && has_contact?()) 
 	end
 
+	# есть ли гит
     def has_git?()
 		return !@git.nil?
 	end
 
+	# есть ли контакт
     def has_contact?()
 		return !(@phone.nil? && @telegram.nil? && @email.nil? && @contact.nil?)
     end
 	
+	# строка с краткой информацией
 	def get_info
 		raise NotImplementedError, "Метод get_info должен быть реализован"
 	end
-  
+
+	# реализация метода to_s
 	def to_s
 		student_str = ""
 		student_str += "ID = #{@id}\n" if @id
