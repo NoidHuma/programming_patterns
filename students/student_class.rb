@@ -106,7 +106,7 @@ class Student < StudentBase
 	end
 	
 	# Сеттер для изменения git
-	private def git=(git)
+	def git=(git)
 		if git.nil? || Validator.valid_git?(git)
 			@git = git
 		else
