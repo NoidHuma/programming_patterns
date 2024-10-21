@@ -65,5 +65,13 @@ class StudentBase
 		end
 	end
 	
+	# получить фамилию и инициалы
+	def fullname
+		if @fullname
+			fullname_output = @fullname
+		else
+			fullname_output = "#{@surname} #{@name[0]}.#{@patronymic[0]}."
+		end
+	end
   
 end

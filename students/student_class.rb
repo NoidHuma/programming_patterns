@@ -121,11 +121,6 @@ class Student < StudentBase
 		self.email = email if !email.nil?
 	end
 	
-	# получить фамилию и инициалы
-	def get_fullname()
-		fullname = "#{@surname} #{@name[0]}.#{@patronymic[0]}."
-	end
-	
 	# получить git
 	def git
 		if has_git?
@@ -137,7 +132,7 @@ class Student < StudentBase
 	
 	# краткая информация
 	def get_info()
-		info_string = "Fullname = " + get_fullname
+		info_string = "Fullname = " + fullname
 		if has_contact?
 			info_string += ", Contact = " + contact
 		end
