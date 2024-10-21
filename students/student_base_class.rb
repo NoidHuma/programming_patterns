@@ -45,5 +45,25 @@ class StudentBase
 		student_str += "Git = #{@git}\n" if @git
 		return student_str
 	end
+	
+	#получить какой-то один контакт
+	def contact
+		if has_contact?
+			if @contact
+				contacts_output = @contact
+			else
+				contacts = [
+					@phone,
+					@telegram,
+					@email,
+				].select { |value| !value.nil? && !value.empty? }
+				contacts_output = contacts[0]
+			end
+			return contacts_output
+		else
+			return "Contacts are not specified"
+		end
+	end
+	
   
 end

@@ -2,7 +2,7 @@ require_relative 'student_base_class.rb'
 
 class StudentShort < StudentBase
 
-	attr_reader :fullname, :contact
+	attr_reader :fullname
   
 	# конструктор, параметр либо объект экземпляр класса student, либо id и строка с краткой информацией
 	def initialize(student: nil, id: nil, student_info: nil)

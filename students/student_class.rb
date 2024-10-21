@@ -135,26 +135,11 @@ class Student < StudentBase
 		end
 	end
 	
-	# получить контакт
-	def get_contact()
-		if has_contact?
-			contacts = [
-			@phone,
-			@telegram,
-			@email,
-		].select { |value| !value.nil? && !value.empty? }
-		contacts_output = contacts[0]
-		return contacts_output
-		else
-			return "Contacts are not specified"
-		end
-	end	
-	
 	# краткая информация
 	def get_info()
 		info_string = "Fullname = " + get_fullname
 		if has_contact?
-			info_string += ", Contact = " + get_contact
+			info_string += ", Contact = " + contact
 		end
 		if has_git?
 			info_string += ", Git = " + git
