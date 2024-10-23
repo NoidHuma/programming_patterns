@@ -29,17 +29,5 @@ class StudentShort < StudentBase
 		end
 	end
 	
-	# строка с краткой информацией
-	def get_info()
-		info_string = "Fullname = " + @fullname
-		if has_contact?
-			info_string += ", Contact = " + @contact
-		end
-		if has_git?
-			info_string += ", Git = " + @git
-		end
-		return info_string
-	end
-	
 end
 

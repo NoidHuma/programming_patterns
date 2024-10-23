@@ -24,11 +24,6 @@ class StudentBase
     def has_contact?()
 		return !(@phone.nil? && @telegram.nil? && @email.nil? && @contact.nil?)
     end
-	
-	# строка с краткой информацией
-	def get_info
-		raise NotImplementedError, "Метод get_info должен быть реализован"
-	end
 
 	# реализация метода to_s
 	def to_s
@@ -72,6 +67,18 @@ class StudentBase
 		else
 			fullname_output = "#{@surname} #{@name[0]}.#{@patronymic[0]}."
 		end
+	end
+	
+	# краткая информация
+	def get_info()
+		info_string = "Fullname = " + fullname
+		if has_contact?
+			info_string += ", Contact = " + contact
+		end
+		if has_git?
+			info_string += ", Git = " + git
+		end
+		return info_string
 	end
   
 end
