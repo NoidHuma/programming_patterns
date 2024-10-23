@@ -121,13 +121,4 @@ class Student < StudentBase
 		self.email = email if !email.nil?
 	end
 	
-	# получить git
-	def git
-		if has_git?
-			return "#{@git}"
-		else
-			return "Git is not specified"
-		end
-	end
-	
 end
