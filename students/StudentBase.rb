@@ -1,4 +1,4 @@
-require_relative 'validator.rb'
+require_relative 'StudentValidator.rb'
 
 class StudentBase
 
