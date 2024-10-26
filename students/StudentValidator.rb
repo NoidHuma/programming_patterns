@@ -1,4 +1,4 @@
-class Validator
+class StudentValidator
 
 	NAME_REGEX = /^[а-яА-ЯёЁa-zA-Z]+$/
 	FULLNAME_REGEX = /^[А-ЯЁA-Z][а-яёa-z-]*\s[А-ЯЁA-Z]\.[А-ЯЁA-Z]\.$/
