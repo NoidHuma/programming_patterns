@@ -3,17 +3,12 @@ require_relative 'StudentBase.rb'
 class StudentShort < StudentBase
   
 	# конструктор, параметр либо объект экземпляр класса student, либо id и строка с краткой информацией
-	def initialize(student: nil, id: nil, student_info: nil)
-		if student
-			@id = student.id
-			parse_student_info(student.get_info)
-		elsif id && student_info
-			@id = id
-			parse_student_info(student_info)
-		end
+	def self.initialize_from_student(student:)
+		new(id: student.id, student_info: student.get_info)
 	end
   
-	private def parse_student_info(student_info)
+	def initialize(id:, student_info:)
+		@id = id
 		info = student_info.split(", ").map do |part|
 			piece = part.split("=")
 			case piece[0].strip

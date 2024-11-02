@@ -56,7 +56,7 @@ class StudentBase
 			end
 			return contacts_output
 		else
-			return "Contacts are not specified"
+			return nil
 		end
 	end
 	
