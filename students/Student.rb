@@ -38,9 +38,6 @@ class Student < StudentBase
 			git: params[:git]
 		)
 	end
-
-	# Делаем to_s для этого класса
-
 	
 	# Сеттер для изменения фамилии
 	def surname=(surname)
@@ -121,49 +118,3 @@ class Student < StudentBase
 		self.email = email if !email.nil?
 	end
 	
-<<<<<<< HEAD:students/student_class.rb
-end
-=======
-	# получить фамилию и инициалы
-	def get_fullname()
-		fullname = "#{@surname} #{@name[0]}.#{@patronymic[0]}."
-	end
-	
-	# получить git
-	def git
-		if has_git?
-			return "#{@git}"
-		else
-			return "Git is not specified"
-		end
-	end
-	
-	# получить контакт
-	def get_contact()
-		if has_contact?
-			contacts = [
-			@phone,
-			@telegram,
-			@email,
-		].select { |value| !value.nil? && !value.empty? }
-		contacts_output = contacts[0]
-		return contacts_output
-		else
-			return "Contacts are not specified"
-		end
-	end	
-	
-	# краткая информация
-	def get_info()
-		info_string = "Fullname = " + get_fullname
-		if has_contact?
-			info_string += ", Contact = " + get_contact
-		end
-		if has_git?
-			info_string += ", Git = " + git
-		end
-		return info_string
-	end
-	
-end
->>>>>>> 2e4079e505057182f4c812ed7189c9a6dc874176:students/Student.rb
