@@ -1,6 +1,4 @@
 class MyArray
-
-  attr_reader :array
   
   
   def initialize(array)
@@ -80,7 +78,7 @@ class MyArray
     end
   end
 
-  max_value # Возвращаем максимальное значение
+  max_value
   end
 
 end
