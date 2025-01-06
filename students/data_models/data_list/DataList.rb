@@ -1,3 +1,5 @@
+require_relative '../DataTable'
+
 class DataList
   attr_reader :elements
 
@@ -24,9 +26,16 @@ class DataList
     raise NotImplementedError, "Необходимо реализовать в наследующих классах."
   end
 
-  # Метод для получения объекта DataTable (не реализован)
+  # Метод для получения объекта DataTable (паттерн шаблон)
   def get_data
-    raise NotImplementedError, "Необходимо реализовать в наследующих классах."
+    res = @elements.map.with_index do |element, index|
+        self.make_row(index)
+    end
+    DataTable.new(res)
+  end
+  
+  def make_row(index)
+      raise ArgumentError, "Метод не реализован"
   end
 end
 

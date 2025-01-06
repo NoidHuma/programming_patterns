@@ -10,20 +10,9 @@ class DataListStudentShort < DataList
     ["Fullname", "Contact", "Git"] # Эта строка может быть изменена в зависимости от вашей структуры атрибутов
   end
 
-  # Метод для получения объекта DataTable
-  def get_data
-    data_table_array = @elements.map.with_index do |student_short, index|
-      # Порядковый номер, fullname, contact, git
-      [
-        index + 1,
-        student_short.fullname,
-        student_short.contact,
-        student_short.git
-      ]
-    end
-
-    # Создаем объект DataTable с полученным массивом
-    DataTable.new(data_table_array)
+  # переопределяем make_row
+  def make_row(index)
+    [index + 1, @elements[index].fullname, @elements[index].git, @elements[index].contact]
   end
 end
 
