@@ -13,7 +13,7 @@ class DataList
 
   def elements=(elements)
     unless elements.is_a?(Array)
-			raise ArgumentError, "получен не массив"
+			raise ArgumentError, "Получен не массив"
 		end
     @elements = elements.map { |element| deep_dup(element) }
   end
@@ -22,6 +22,10 @@ class DataList
   def select(number)
     raise IndexError, "Индекс вне диапазона." if number < 0 || number >= @elements.size
     @selected << @elements[number] unless @selected.include?(@elements[number])
+  end
+
+  def clear_selected
+    @selected.clear
   end
 
   # Метод для получения массива ID выделенных элементов
