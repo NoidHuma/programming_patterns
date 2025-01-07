@@ -1,5 +1,4 @@
 require_relative 'DataList'
-require_relative '../DataTable'
 require_relative '../../StudentShort'
 
 class DataListStudentShort < DataList
