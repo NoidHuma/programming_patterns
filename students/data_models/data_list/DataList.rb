@@ -47,6 +47,7 @@ class DataList
     DataTable.new(res)
   end
   
+  protected
   def make_row(index)
       raise ArgumentError, "Метод не реализован"
   end

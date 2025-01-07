@@ -1,4 +1,4 @@
-class StudentValidator
+module StudentValidator
 
 	NAME_REGEX = /^[а-яА-ЯёЁa-zA-Z]+$/
 	FULLNAME_REGEX = /^[А-ЯЁA-Z][а-яёa-z-]*\s[А-ЯЁA-Z]\.[А-ЯЁA-Z]\.$/
@@ -9,32 +9,32 @@ class StudentValidator
 	
 
 	# Проверка корректности формата строки с фамилией/именем/отчеством
-	def self.valid_name?(name)
+	def valid_name?(name)
 		name =~ NAME_REGEX
 	end
 	
 	# Проверка корректности формата строки с телефоном	
-	def self.valid_phone?(phone)
+	def valid_phone?(phone)
 		phone =~ PHONE_REGEX
 	end
 	
 	# Проверка корректности формата строки с телеграмом
-	def self.valid_telegram?(telegram)
+	def valid_telegram?(telegram)
 		telegram =~ TELEGRAM_REGEX
 	end
 	
 	# Проверка корректности формата строки с email
-	def self.valid_email?(email)
+	def valid_email?(email)
 		email =~ EMAIL_REGEX
 	end
 		
 	# Проверка корректности формата строки с git
-	def self.valid_git?(git)
+	def valid_git?(git)
 		git =~ GIT_REGEX
 	end
 
 	# Проверка корректности формата строки с фамилией и инициалами
-	def self.valid_fullname?(fullname)
+	def valid_fullname?(fullname)
 		fullname =~ FULLNAME_REGEX
 	end
 	

@@ -1,6 +1,7 @@
 require_relative 'StudentBase.rb'
 
 class Student < StudentBase
+	include StudentValidator
 
 	# аксессор
 	attr_reader :surname, :name, :patronymic, :phone, :telegram, :email
@@ -44,7 +45,7 @@ class Student < StudentBase
 		if surname.nil? 
 			raise ArgumentError, "Фамилия - обязательное поле"
 		end
-		if StudentValidator.valid_name?(surname)
+		if valid_name?(surname)
 			@surname = surname
 		else
 			raise ArgumentError, "Некорректный формат фамилии"
@@ -56,7 +57,7 @@ class Student < StudentBase
 		if name.nil? 
 			raise ArgumentError, "Имя - обязательное поле"
 		end
-		if StudentValidator.valid_name?(name)
+		if valid_name?(name)
 			@name = name
 		else
 			raise ArgumentError, "Некорректный формат имени"
@@ -68,7 +69,7 @@ class Student < StudentBase
 		if patronymic.nil? 
 			raise ArgumentError, "Отчество - обязательное поле"
 		end
-		if StudentValidator.valid_name?(patronymic)
+		if valid_name?(patronymic)
 			@patronymic = patronymic
 		else
 			raise ArgumentError, "Некорректный формат отчества"
@@ -77,7 +78,7 @@ class Student < StudentBase
 	
 	# Сеттер для изменения телефона
 	private def phone=(phone)
-		if phone.nil? || StudentValidator.valid_phone?(phone)
+		if phone.nil? || valid_phone?(phone)
 			@phone = phone
 		else
 			raise ArgumentError, "Некорректный формат телефонного номера"
@@ -86,7 +87,7 @@ class Student < StudentBase
 	
 	# Сеттер для изменения телеграма
 	private def telegram=(telegram)
-		if telegram.nil? || StudentValidator.valid_telegram?(telegram)
+		if telegram.nil? || valid_telegram?(telegram)
 			@telegram = telegram
 		else
 			raise ArgumentError, "Некорректный формат ссылки на телеграм-аккаунт"
@@ -95,7 +96,7 @@ class Student < StudentBase
 	
 	# Сеттер для изменения email
 	private def email=(email)
-		if email.nil? || StudentValidator.valid_email?(email)
+		if email.nil? || valid_email?(email)
 			@email = email
 		else
 			raise ArgumentError, "Некорректный формат email"
@@ -104,7 +105,7 @@ class Student < StudentBase
 	
 	# Сеттер для изменения git
 	def git=(git)
-		if git.nil? || StudentValidator.valid_git?(git)
+		if git.nil? || valid_git?(git)
 			@git = git
 		else
 			raise ArgumentError, "Некорректный формат ссылки на github"
@@ -117,4 +118,4 @@ class Student < StudentBase
 		self.telegram = telegram if !telegram.nil?
 		self.email = email if !email.nil?
 	end
-	
+end
