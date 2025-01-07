@@ -1,24 +1,32 @@
 require_relative '../DataTable'
+require_relative "../DeepDup"
 
 class DataList
-  attr_reader :elements
+  include DeepDup
 
   def initialize(elements)
     raise ArgumentError, "Элементы должны быть массивом." unless elements.is_a?(Array)
 
-    @elements = elements
-    @selected_indices = []
+    self.elements = elements
+    @selected = []
+  end
+
+  def elements=(elements)
+    unless elements.is_a?(Array)
+			raise ArgumentError, "получен не массив"
+		end
+    @elements = elements.map { |element| deep_dup(element) }
   end
 
   # Метод для выделения элемента по номеру
   def select(number)
     raise IndexError, "Индекс вне диапазона." if number < 0 || number >= @elements.size
-    @selected_indices << number unless @selected_indices.include?(number)
+    @selected << @elements[number] unless @selected.include?(@elements[number])
   end
 
   # Метод для получения массива ID выделенных элементов
   def get_selected
-    @selected_indices.map { |index| @elements[index].id }
+    @selected.map { |element| element.id }
   end
 
   # Метод для получения массива наименований атрибутов (не реализован)
