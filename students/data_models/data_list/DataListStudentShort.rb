@@ -27,3 +27,4 @@ data_list = DataListStudentShort.new(students)
 puts "Имена атрибутов: #{data_list.get_names.join(', ')}"
 data_table = data_list.get_data
 puts "Данные таблицы:\n#{data_table}"
+puts data_list.columns

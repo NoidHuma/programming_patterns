@@ -8,6 +8,7 @@ class DataList
     raise ArgumentError, "Элементы должны быть массивом." unless elements.is_a?(Array)
 
     self.elements = elements
+    @columns = self.get_names
     @selected = []
   end
 
@@ -51,27 +52,3 @@ class DataList
   end
 end
 
-# Пример класса элемента, который будет использоваться в списке
-class Element
-  attr_accessor :id, :name
-
-  def initialize(id, name)
-    @id = id
-    @name = name
-  end
-end
-
-# Пример использования
-elements = [
-  Element.new(1, "Элемент 1"),
-  Element.new(2, "Элемент 2"),
-  Element.new(3, "Элемент 3")
-]
-
-data_list = DataList.new(elements)
-data_list.select(0) # Выделяем первый элемент
-data_list.select(2) # Выделяем третий элемент
-
-puts "Выделенные ID: #{data_list.get_selected}"
-
-# Необходимо реализовать классы-наследники для get_names и get_data
