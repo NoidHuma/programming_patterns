@@ -9,6 +9,7 @@ class DataListStudentShort < DataList
     ["Fullname", "Contact", "Git"] # Эта строка может быть изменена в зависимости от вашей структуры атрибутов
   end
 
+  private
   # переопределяем make_row
   def make_row(index)
     [index + 1, @elements[index].fullname, @elements[index].git, @elements[index].contact]
