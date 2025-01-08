@@ -41,6 +41,23 @@ class StudentBase
 		student_str += "git: #{@git}" if @git
 		return student_str
 	end
+
+	def to_h
+		student_hash = {}
+		student_hash["id"] = @id if @id
+		student_hash["surname"] = @surname if @surname
+		student_hash["name"] = @name if @name
+		student_hash["patronymic"] = @patronymic if @patronymic
+		student_hash["fullname"] = @fullname if @fullname
+		student_hash["phone"] = @phone if @phone
+		student_hash["telegram"] = @telegram if @telegram
+		student_hash["email"] = @email if @email
+		student_hash["contact"] = @contact if @contact
+		student_hash["git"] = @git if @git
+		
+		student_hash
+	end
+	
 	
 	#получить какой-то один контакт
 	def contact
