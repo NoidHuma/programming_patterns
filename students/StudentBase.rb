@@ -2,7 +2,8 @@ require_relative 'StudentValidator'
 
 class StudentBase
 
-	attr_reader :id,:git
+	attr_reader :git
+	attr_accessor :id
 
 	# конструктор
 	def initialize(id: nil, git: nil)
@@ -28,16 +29,16 @@ class StudentBase
 	# реализация метода to_s
 	def to_s
 		student_str = ""
-		student_str += "ID = #{@id}\n" if @id
-		student_str += "Surname = #{@surname}\n" if @surname
-		student_str += "Name = #{@name}\n" if @name
-		student_str += "Patronymic = #{@patronymic}\n" if @patronymic
-		student_str += "Fullname = #{@fullname}\n" if @fullname
-		student_str += "Phone = #{@phone}\n" if @phone
-		student_str += "Telegram = #{@telegram}\n" if @telegram
-		student_str += "Email = #{@email}\n" if @email
-		student_str += "Contact = #{@contact}\n" if @contact
-		student_str += "Git = #{@git}\n" if @git
+		student_str += "id: #{@id}, " if @id
+		student_str += "surname: #{@surname}, " if @surname
+		student_str += "name: #{@name}, " if @name
+		student_str += "patronymic: #{@patronymic}, " if @patronymic
+		student_str += "fullname: #{@fullname}, " if @fullname
+		student_str += "phone: #{@phone}, " if @phone
+		student_str += "telegram: #{@telegram}, " if @telegram
+		student_str += "email: #{@email}, " if @email
+		student_str += "contact: #{@contact}, " if @contact
+		student_str += "git: #{@git}" if @git
 		return student_str
 	end
 	
