@@ -28,15 +28,4 @@ class DataTable
   end
 end
 
-# Пример использования класса DataTable
-data = [
-  [1, "Alice", 25],
-  [2, "Bob", 30],
-  [3, "Charlie", 35]
-]
 
-table = DataTable.new(data)
-puts "Размер таблицы: #{table.size}"
-puts "Значение в строке 1, столбце 1: #{table.get_value(1, 1)}"
-puts "Таблица:"
-puts table

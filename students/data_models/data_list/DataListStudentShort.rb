@@ -16,14 +16,4 @@ class DataListStudentShort < DataList
   end
 end
 
-# Пример использования
-students = [
-  StudentShort.new(id: 1, student_info: "Fullname = John Doe, Contact = john@example.com, Git = https://github.com/johndoe"),
-  StudentShort.new(id: 2, student_info: "Fullname = Jane Smith, Contact = jane@example.com, Git = https://github.com/janesmith"),
-  StudentShort.new(id: 3, student_info: "Fullname = Alice Johnson, Contact = alice@example.com, Git = https://github.com/alicejohnson")
-]
 
-data_list = DataListStudentShort.new(students)
-puts "Имена атрибутов: #{data_list.get_names.join(', ')}"
-data_table = data_list.get_data
-puts "Данные таблицы:\n#{data_table}"
