@@ -3,7 +3,6 @@ require_relative '../../StudentShort' # Подразумевается, что �
 require_relative '../data_list/DataListStudentShort' # Импортируем класс DataListStudentShort
 
 class StudentsListTxt
-  attr_accessor :students
 
   def initialize(file_path)
     @file_path = file_path
