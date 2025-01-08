@@ -1,33 +1,32 @@
 [
-    {
-      "id": 1,
-      "surname": "Иванов",
-      "name": "Иван",
-      "patronymic": "Иванович",
-      "phone": "+79001234567",
-      "telegram": "https://t.me/ivanov",
-      "email": "ivanov@example.com",
-      "git": "https://github.com/ivanov"
-    },
-    {
-      "id": 2,
-      "surname": "Петров",
-      "name": "Петр",
-      "patronymic": "Петрович",
-      "phone": "+79007654321",
-      "telegram": "https://t.me/petrov",
-      "email": "petrov@example.com",
-      "git": "https://github.com/petrov"
-    },
-    {
-      "id": 3,
-      "surname": "Сидоров",
-      "name": "Сидор",
-      "patronymic": "Сидорович",
-      "phone": "+79003456789",
-      "telegram": "https://t.me/sidorov",
-      "email": "sidorov@example.com",
-      "git": "https://github.com/sidorov"
-    }
-  ]
-  
+  {
+    "id": 1,
+    "surname": "Иванов",
+    "name": "Иван",
+    "patronymic": "Иванович",
+    "phone": "+79001234567",
+    "telegram": "https://t.me/ivanov",
+    "email": "ivanov@example.com",
+    "git": "https://github.com/ivanov"
+  },
+  {
+    "id": 2,
+    "surname": "Петров",
+    "name": "Петр",
+    "patronymic": "Петрович",
+    "phone": "+79007654321",
+    "telegram": "https://t.me/petrov",
+    "email": "petrov@example.com",
+    "git": "https://github.com/petrov"
+  },
+  {
+    "id": 3,
+    "surname": "Сидоров",
+    "name": "Сидор",
+    "patronymic": "Сидорович",
+    "phone": "+79003456789",
+    "telegram": "https://t.me/sidorov",
+    "email": "sidorov@example.com",
+    "git": "https://github.com/sidorov"
+  }
+]
