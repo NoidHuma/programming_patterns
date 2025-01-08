@@ -1,0 +1,2 @@
+id: 1, surname: Bachurin, name: Vano, patronymic: Alekseevich, telegram: https://t.me/bigbingo
+id: 2, surname: Grigorenko, name: Nikita, patronymic: Alekseevich, phone: +79649201760, telegram: https://t.me/noidhuma, email: nikitag.big2005@gmail.com, git: https://github.com/NoidHuma
