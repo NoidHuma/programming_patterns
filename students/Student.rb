@@ -39,6 +39,24 @@ class Student < StudentBase
 			git: params[:git]
 		)
 	end
+
+	#конструктор принимающий хеш
+	def self.initialize_from_hash(params)
+		raise ArgumentError, "Входной хеш не должен быть пустым" if params.nil? || !params.is_a?(Hash) || params.empty?
+	
+		# Вызываем стандартный конструктор с переданными параметрами
+		new(
+			id: params[:id],
+			surname: params[:surname],
+			name: params[:name],
+			patronymic: params[:patronymic],
+			phone: params[:phone],
+			telegram: params[:telegram],
+			email: params[:email],
+			git: params[:git]
+		)
+	end
+	
 	
 	# Сеттер для изменения фамилии
 	def surname=(surname)
