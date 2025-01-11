@@ -8,5 +8,5 @@ CREATE TABLE student (
     phone TEXT UNIQUE,
     telegram TEXT UNIQUE,
     email TEXT UNIQUE,
-    git TEXT UNIQUE,
+    git TEXT UNIQUE
 );
