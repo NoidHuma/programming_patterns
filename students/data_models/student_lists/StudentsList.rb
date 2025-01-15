@@ -55,6 +55,9 @@ class StudentsList
 
   # Добавить объект класса Student в список
   def add_student(student)
+    if @students.include?(student)
+      raise ArgumentError, 'уже существует'
+    end
     student.id = generate_new_id(@students)
     @students << student
   end
@@ -63,10 +66,13 @@ class StudentsList
   def replace_student_by_id(id, new_student)
     index = @students.index { |student| student.id == id }
     if index
+      if @students.include?(student)
+        raise ArgumentError, 'уже существует'
+      end
       new_student.id = id
       @students[index] = new_student
     else
-      raise "Студент с ID #{id} не найден."
+      raise IndexError, "Студент с ID #{id} не найден."
     end
   end
 
@@ -87,20 +93,3 @@ class StudentsList
     (objects.map(&:id).max || 0) + 1
   end
 end
-
-
-json_strategy = StudentsListJson.new
-students_list = StudentsList.new("../../files/students_list.json", json_strategy)
-puts students_list.find_student_by_id(2)
-new_student = Student.initialize_from_string("id: 3, surname: Frigor, name: Nik, patronymic: Tich, phone: +79649201670, telegram: https://t.me/noihduma, email: nikitag.small2005@gmail.com, git: https://github.com/NoihDuma")
-students_list.add_student(new_student)
-new_student = Student.initialize_from_string("id: 4, surname: Gri, name: Aikgor, patronymic: Vich, phone: +79750312781, telegram: https://t.me/noih1, email: nik.small2005@gmail.com, git: https://github.com/Noih")
-students_list.add_student(new_student)
-new_student = Student.initialize_from_string("id: 4, surname: Gri, name: Nik, patronymic: Hi, phone: +79750312781, telegram: https://t.me/noih2, email: nik.small2005@gmail.com, git: https://github.com/Noih")
-students_list.replace_student_by_id(1, new_student)
-students_list.delete_student_by_id(2)
-puts students_list.size
-students_short_list = students_list.get_k_n_student_short_list(1, 2)
-puts students_short_list.get_data
-students_list.sort_students_by_fullname
-students_list.save_students
