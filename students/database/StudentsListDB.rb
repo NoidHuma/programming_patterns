@@ -4,7 +4,7 @@ require_relative '../Student'
 class StudentsListDB
     
     def initialize()
-        @connection = Connection.new()
+        @connection = Connection.instance
       end
     
     def get_student_by_id(id)

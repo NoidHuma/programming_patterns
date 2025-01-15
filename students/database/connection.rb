@@ -1,6 +1,12 @@
 require 'pg'
 
 class Connection
+
+	private_class_method :new
+	@@instance = nil
+	def self.instance
+		@@instance ||= new
+	end
 	
 	def initialize()
 		@connection = PG.connect(
@@ -17,6 +23,6 @@ class Connection
 	end
 
 	def close
-	  @connection.close if @connection
+	  @connection.close
 	end
 end
