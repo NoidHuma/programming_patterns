@@ -49,7 +49,7 @@ class DataList
   
   protected
   def make_row(index)
-      raise ArgumentError, "Метод не реализован"
+      raise NotImplementedError, "Необходимо реализовать в наследующих классах."
   end
 end
 
