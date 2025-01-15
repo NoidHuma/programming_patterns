@@ -47,7 +47,7 @@ class StudentsListDB
 		end 
 	end
 
-	def get_student_short_count()
+	def size()
 		result = @connection.execute_query("SELECT COUNT(*) FROM student")
 		result[0]['count'].to_i
 	end

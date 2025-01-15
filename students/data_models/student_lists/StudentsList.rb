@@ -30,7 +30,7 @@ class StudentsList
   end
 
   # Получить объект класса Student по ID
-  def find_student_by_id(id)
+  def get_student_by_id(id)
     @students.find { |student| student.id == id }
   end
 
