@@ -57,6 +57,9 @@ class Student < StudentBase
 		)
 	end
 	
+	def ==(student)
+    self.github == student.github || self.phone == student.phone || self.email == student.email || self.telegram == student.telegram
+  end
 	
 	# Сеттер для изменения фамилии
 	def surname=(surname)
