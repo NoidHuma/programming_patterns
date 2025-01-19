@@ -1,5 +1,6 @@
 require 'fox16'
 require_relative 'view/StudentsListView.rb'
+require_relative 'controller/StudentsListController.rb'
 
 include Fox
 class App < FXMainWindow
@@ -8,7 +9,8 @@ class App < FXMainWindow
         tabs = FXTabBook.new(self, opts: LAYOUT_FILL)
         FXTabItem.new(tabs, "Список студентов")
         student_list = FXVerticalFrame.new(tabs, opts: LAYOUT_FILL)
-        StudentsListView.new(student_list)
+        student_list_view = StudentsListView.new(student_list)
+        student_list_view.refresh_data
         FXTabItem.new(tabs, "Вкладка 2")
         FXVerticalFrame.new(tabs, opts: LAYOUT_FILL)
         FXTabItem.new(tabs, "Вкладка 3")

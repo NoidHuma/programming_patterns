@@ -3,26 +3,35 @@ require 'pg'
 
 require_relative '../../data_models/data_list/DataList.rb'
 require_relative '../../data_models/data_list/DataListStudent.rb'
+require_relative '../../data_models/data_list/DataListStudentShort.rb'
 require_relative '../../data_models/student_lists/StudentsList.rb'
 require_relative '../../database/StudentsListDB.rb'
 require_relative '../../data_models/student_lists/StudentsListJson.rb'
 require_relative '../../data_models/student_lists/StudentsListYaml.rb'
 
+require_relative '../controller/StudentsListController.rb'
+
 include Fox
 
 class StudentsListView < FXVerticalFrame
+
+  attr_accessor :controller, :current_page_label
 
   ROWS_PER_PAGE = 5
 
   
   def initialize(parent)
     super(parent, opts: LAYOUT_FILL)
+    self.controller = StudentsListController.new(self)
 
     self.filters = {}
 
     setup_filtering_area
     setup_table_area
     setup_control_buttons_area
+    self.current_page_label = 1
+    self.total_pages = 1
+    self.refresh_data
   end
 
 
@@ -33,7 +42,6 @@ class StudentsListView < FXVerticalFrame
     name_text_field = nil
     FXHorizontalFrame.new(filtering_area, opts: LAYOUT_FILL_X) do |frame|
       FXLabel.new(frame, "Фамилия и инициалы:")
-      FXTextField.new(frame, 20, opts: TEXTFIELD_NORMAL)
       name_text_field = FXTextField.new(frame, 20, opts: TEXTFIELD_NORMAL)
     end
 
@@ -82,18 +90,16 @@ class StudentsListView < FXVerticalFrame
 
     controls = FXHorizontalFrame.new(table_area, opts: LAYOUT_FILL_X)
     self.prev_button = FXButton.new(controls, "<<<", opts: BUTTON_NORMAL | LAYOUT_LEFT)
-    self.current_page_label = FXLabel.new(controls, "Страница: 1/1", opts: LAYOUT_CENTER_X)
+    self.page_label = FXLabel.new(controls, "Страница: 1/1", opts: LAYOUT_CENTER_X)
     self.next_button = FXButton.new(controls, ">>>", opts: BUTTON_NORMAL | LAYOUT_RIGHT)
 
     self.prev_button.connect(SEL_COMMAND) { switch_page(-1) }
     self.next_button.connect(SEL_COMMAND) { switch_page(1) }
 
-    self.table.columnHeader.connect(SEL_COMMAND) do |_, _, column_index|
-      sort_table_by_column(column_index)
-
+    self.table.columnHeader.connect(SEL_COMMAND) do |_, _, pos|
+      self.controller.sort_table_by_column
+      self.controller.refresh_data
     end
-
-    populate_table
 
   end
 
@@ -110,108 +116,79 @@ class StudentsListView < FXVerticalFrame
     self.table.connect(SEL_SELECTED) { update_button_states }
     self.table.connect(SEL_DESELECTED) { update_button_states }
     update_button_states
-    populate_table
+  end
+
+  def set_table_params(column_names, whole_entities_count)
+    column_names.each_with_index do |name, index|
+      self.table.setColumnText(index, name)
+    end
+    self.total_pages = (whole_entities_count / ROWS_PER_PAGE.to_f).ceil
+    update_page_label
+  end
+
+  def set_table_data(data_table)
+    clear_table
+    (1...data_table.row_count).each do |row|
+      (0...data_table.column_count).each do |col|
+        self.table.setItemText(row - 1, col, data_table.get(row, col).to_s)
+      end
+    end
+  end
+
+  def refresh_data
+    self.current_page_label = 1
+    self.controller.refresh_data
   end
 
   private
+
+  attr_accessor :table, :total_pages, :prev_button, :next_button, :sort_order, :add_button, :update_button, :edit_button, :delete_button,
+  :filters, :page_label, :selected_rows
+
+  def update_page_label
+    self.page_label.text = "Страница: #{self.current_page_label}/#{self.total_pages}"
+  end
   
-  attr_accessor :table, :data, :total_pages, :current_page, :current_page_label, :prev_button, :next_button, :sort_order, :add_button, :update_button, :edit_button, :delete_button, :filters 
-
-  def populate_table
-
-    data_list = DataListStudent.new([
-      Student.new(name: "Faffdsf", surname: "Fvfdfd", lastname: "Edsfs", git: "test1", id: 0, telegram: "@testtt1", birth_date: "01.01.1995", mail: "wysi727@gmail.com", phone: "88005553535"),
-      Student.new(name: "Frete", surname: "Gfdgfd", lastname: "Mfgfd", git: "test2", id: 1, telegram: "@testtt2", birth_date: "02.01.1995", mail: "wysi728@gmail.com", phone: "88005553536"),
-      Student.new(name: "Vfdf", surname: "Tretreg", lastname: "Thgfbgf", git: "test3", id: 1, telegram: "@testtt3", birth_date: "03.01.1995", mail: "wysi729@gmail.com", phone: "88005553537"),
-    ])
-
-    self.data = data_list.get_table
-    self.total_pages = ((self.data.row_count - 1).to_f / ROWS_PER_PAGE).ceil
-    self.current_page = 1
-    update_table
-
-  end
-
-
-  def update_table(sorted_data = nil)
-
-    return if self.data.nil? || self.data.row_count <= 1
-    (0...self.data.column_count).each do |col_index|
-      self.table.setColumnText(col_index, self.data.get_element_at(0, col_index).to_s)
-    end
-
-    clear_table
-
-    data_to_display = sorted_data || get_page_data(self.current_page)
-    data_to_display.each_with_index do |row, row_index|
-      row.each_with_index do |cell, col_index|
-        self.table.setItemText(row_index, col_index, cell.to_s)
-      end
-
-    end
-    self.current_page_label.text = "Страница: #{self.current_page}/#{self.total_pages}"
-
-  end
 
   def clear_table
-    (0...ROWS_PER_PAGE).each do |row_index|
-      (0...self.data.column_count).each do |col_index|
+    (0...self.table.numRows).each do |row_index|
+      (0...self.table.numColumns).each do |col_index|
         self.table.setItemText(row_index, col_index, "")
       end
     end
 
   end
 
-  def get_page_data(page_number)
-    start_index = (page_number - 1) * ROWS_PER_PAGE + 1
-    end_index = start_index + ROWS_PER_PAGE - 1
-    data_page = []
+  def on_add
+    self.controller.add
+  end
 
-    (start_index..end_index).each do |row_index|
-      break if row_index >= self.data.row_count
-      row = []
-      (0...self.data.column_count).each do |col_index|
-        row << self.data.get_element_at(row_index, col_index)
-      end
-      data_page << row
+  def on_update
+    self.refresh_data
+  end
+
+  def on_edit
+    self.selected_rows = []
+    (0...self.table.numRows).each do |index|
+      self.selected_rows << index if self.table.rowSelected?(index)
     end
+    self.controller.update(self.selected_rows[0])
+  end
 
-    data_page
-
+  def on_delete
+    self.selected_rows = []
+    (0...self.table.numRows).each do |index|
+      self.selected_rows << index if self.table.rowSelected?(index)
+    end
+    self.controller.delete(self.selected_rows)
   end
 
   def switch_page(direction)
-    new_page = self.current_page + direction
-    return if new_page < 1 || new_page > self.total_pages
-    
-    self.current_page = new_page
-    update_table
-  end
-
-  def sort_table_by_column(column_index)
-    return if self.data.nil? || self.data.row_count <= 1
-  
-    headers = (0...self.data.column_count).map { |col_index| self.data.get_element_at(0, col_index) }
-    rows = (1...self.data.row_count).map do |row_index|
-      (0...self.data.column_count).map { |col_index| self.data.get_element_at(row_index, col_index) }
+    new_page = self.current_page_label + direction
+    if new_page > 0 && new_page <= self.total_pages
+      self.current_page_label = new_page
+      self.controller.refresh_data
     end
-  
-    self.sort_order ||= {}
-    self.sort_order[column_index] = !self.sort_order.fetch(column_index, false)
-
-    sorted_rows = rows.sort_by do |row|
-      value = row[column_index]
-      if value.nil?
-        ''
-      else
-        value.to_s
-      end
-    end
-    sorted_rows.reverse! unless self.sort_order[column_index]
-    all_rows = [headers] + sorted_rows
-    self.data = DataTable.new(all_rows)
-    update_table
-
   end
 
   def get_selected_rows
@@ -239,23 +216,13 @@ class StudentsListView < FXVerticalFrame
       self.delete_button.enabled = true
     end
   end
-  def on_add
-  end
-  
-  def on_update
-  end
-  
-  def on_edit
-  end
-  
-  def on_delete
-  end
+
   def reset_filters
     self.filters.each_value do |field|
-      field[:combo].setCurrentItem(0) if !field[:combo].nil?
+      field[:combo_box].setCurrentItem(0) if !field[:combo_box].nil?
       field[:text_field].text = ""
     end
-    populate_table
+    self.controller.refresh_data
   end
   
 end
