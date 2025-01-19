@@ -9,9 +9,9 @@ class App < FXMainWindow
         FXTabItem.new(tabs, "Список студентов")
         student_list = FXVerticalFrame.new(tabs, opts: LAYOUT_FILL)
         StudentsListView.new(student_list)
-        FXTabItem.new(tabs, "Пока неизвестная вкладка")
+        FXTabItem.new(tabs, "Вкладка 2")
         FXVerticalFrame.new(tabs, opts: LAYOUT_FILL)
-        FXTabItem.new(tabs, "Тоже пока не понятно что тут")
+        FXTabItem.new(tabs, "Вкладка 3")
         FXVerticalFrame.new(tabs, opts: LAYOUT_FILL)
     end
     def create

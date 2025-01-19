@@ -4,6 +4,8 @@ require_relative "../DeepDup"
 class DataList
   include DeepDup
 
+  private attr_accessor :elements, :observers, :selected_ids, :count
+
   def initialize(elements)
     raise ArgumentError, "Элементы должны быть массивом." unless elements.is_a?(Array)
 

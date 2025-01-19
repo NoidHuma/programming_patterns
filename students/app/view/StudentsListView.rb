@@ -18,8 +18,11 @@ class StudentsListView < FXVerticalFrame
   def initialize(parent)
     super(parent, opts: LAYOUT_FILL)
 
+    self.filters = {}
+
     setup_filtering_area
     setup_table_area
+    setup_control_buttons_area
   end
 
 
@@ -27,15 +30,23 @@ class StudentsListView < FXVerticalFrame
     filtering_area = FXVerticalFrame.new(self, opts: LAYOUT_FILL_X | LAYOUT_SIDE_TOP)
     FXLabel.new(filtering_area, "Фильтрация")
 
+    name_text_field = nil
     FXHorizontalFrame.new(filtering_area, opts: LAYOUT_FILL_X) do |frame|
       FXLabel.new(frame, "Фамилия и инициалы:")
       FXTextField.new(frame, 20, opts: TEXTFIELD_NORMAL)
+      name_text_field = FXTextField.new(frame, 20, opts: TEXTFIELD_NORMAL)
     end
+
+    self.filters['name'] = { text_field: name_text_field }
 
     add_filtering_row(filtering_area, "Git:")
     add_filtering_row(filtering_area, "Email:")
     add_filtering_row(filtering_area, "Телефон:")
     add_filtering_row(filtering_area, "Telegram:")
+
+    FXButton.new(filtering_area, "Сбросить", opts: BUTTON_NORMAL).connect(SEL_COMMAND) do
+      reset_filters
+    end
   end
 
 
@@ -51,6 +62,8 @@ class StudentsListView < FXVerticalFrame
 
       text_field = FXTextField.new(frame, 15, opts: TEXTFIELD_NORMAL)
       text_field.enabled = false
+
+      self.filters[label] = { combo_box: combo_box, text_field: text_field }
 
       combo_box.connect(SEL_COMMAND) do
         text_field.enabled = (combo_box.currentItem == 1)
@@ -84,9 +97,25 @@ class StudentsListView < FXVerticalFrame
 
   end
 
+  def setup_control_buttons_area
+    button_area = FXHorizontalFrame.new(self, opts: LAYOUT_FILL_X | PACK_UNIFORM_WIDTH)
+    self.add_button = FXButton.new(button_area, "Добавить", opts: BUTTON_NORMAL)
+    self.edit_button = FXButton.new(button_area, "Изменить", opts: BUTTON_NORMAL)
+    self.delete_button = FXButton.new(button_area, "Удалить", opts: BUTTON_NORMAL)
+    self.update_button = FXButton.new(button_area, "Обновить", opts: BUTTON_NORMAL)
+    self.add_button.connect(SEL_COMMAND) { on_add }
+    self.update_button.connect(SEL_COMMAND) { on_update }
+    self.edit_button.connect(SEL_COMMAND) { on_edit }
+    self.delete_button.connect(SEL_COMMAND) { on_delete }
+    self.table.connect(SEL_SELECTED) { update_button_states }
+    self.table.connect(SEL_DESELECTED) { update_button_states }
+    update_button_states
+    populate_table
+  end
+
   private
   
-  attr_accessor :table, :data, :total_pages, :current_page, :current_page_label, :prev_button, :next_button, :sort_order
+  attr_accessor :table, :data, :total_pages, :current_page, :current_page_label, :prev_button, :next_button, :sort_order, :add_button, :update_button, :edit_button, :delete_button, :filters 
 
   def populate_table
 
@@ -183,6 +212,50 @@ class StudentsListView < FXVerticalFrame
     self.data = DataTable.new(all_rows)
     update_table
 
+  end
+
+  def get_selected_rows
+    selected_rows = []
+    (0...self.table.numRows).each do |row|
+      selected_rows << row if self.table.rowSelected?(row)
+    end
+    selected_rows
+  end
+  def update_button_states
+    selected_rows = get_selected_rows
+  
+    self.add_button.enabled = true
+    self.update_button.enabled = true
+  
+    case selected_rows.size
+    when 0
+      self.edit_button.enabled = false
+      self.delete_button.enabled = false
+    when 1
+      self.edit_button.enabled = true
+      self.delete_button.enabled = true
+    else
+      self.edit_button.enabled = false
+      self.delete_button.enabled = true
+    end
+  end
+  def on_add
+  end
+  
+  def on_update
+  end
+  
+  def on_edit
+  end
+  
+  def on_delete
+  end
+  def reset_filters
+    self.filters.each_value do |field|
+      field[:combo].setCurrentItem(0) if !field[:combo].nil?
+      field[:text_field].text = ""
+    end
+    populate_table
   end
   
 end
