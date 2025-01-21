@@ -1,7 +1,7 @@
 require_relative '../../Student' # Подразумевается, что класс Student определен в этом файле
 require_relative 'interface'
 
-class StudentsListTxt
+class StudentsListTxt < StorageStrategy
 
   # Чтение всех значений из файла
   def read_from_file(file_path)
