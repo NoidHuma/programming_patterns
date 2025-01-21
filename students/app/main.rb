@@ -1,5 +1,5 @@
 require 'fox16'
-require 'App'
+require_relative 'App'
 
 include Fox
 
