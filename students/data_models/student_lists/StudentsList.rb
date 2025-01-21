@@ -10,23 +10,23 @@ class StudentsList
   def initialize(file_path, storage_strategy)
     @file_path = file_path
     @storage_strategy = storage_strategy
-    @students = load_students
+    @students = read_from_file
   end
 
   # Чтение всех значений из файла
-  def load_students
+  def read_from_file
     @storage_strategy.read_from_file(@file_path)
   end
 
   # Запись всех значений в файл
-  def save_students
+  def write_to_file
     @storage_strategy.write_to_file(@file_path, @students)
   end
 
   def update_strategy(new_file_path, new_storage_strategy)
     @file_path = new_file_path
     @storage_strategy = new_storage_strategy
-    @students = load_students
+    @students = read_from_file
   end
 
   # Получить объект класса Student по ID

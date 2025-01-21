@@ -19,7 +19,7 @@ class StudentsListTxt
   def write_to_file(file_path, students)
     File.open(file_path, 'w') do |file|
       students.each do |student|
-        file.puts(student.to_s) # Предполагается, что метод to_s возвращает строку для записи
+        file.puts(student.to_s) 
       end
     end
   end
