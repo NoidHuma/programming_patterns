@@ -8,25 +8,22 @@ require_relative 'StudentsListYaml'
 class StudentsList
 
   def initialize(file_path, storage_strategy)
-    @file_path = file_path
     @storage_strategy = storage_strategy
-    @students = read_from_file
+    @students = read_from_file(file_path)
   end
 
   # Чтение всех значений из файла
-  def read_from_file
-    @storage_strategy.read_from_file(@file_path)
+  def read_from_file(file_path)
+    @students = @storage_strategy.read_from_file(file_path)
   end
 
   # Запись всех значений в файл
-  def write_to_file
-    @storage_strategy.write_to_file(@file_path, @students)
+  def write_to_file(file_path)
+    @storage_strategy.write_to_file(file_path, @students)
   end
 
-  def update_strategy(new_file_path, new_storage_strategy)
-    @file_path = new_file_path
+  def update_strategy(new_storage_strategy)
     @storage_strategy = new_storage_strategy
-    @students = read_from_file
   end
 
   # Получить объект класса Student по ID
