@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "surname": "Иванов",
+    "name": "Владимир",
+    "patronymic": "Аркадьевич",
+    "tg": null,
+    "email": null,
+    "phone": "+79183336640",
+    "git": "github.com/ok"
+  },
+  {
+    "id": 2,
+    "surname": "Петров",
+    "name": "Владислав",
+    "patronymic": "Сергеевич",
+    "tg": null,
+    "email": null,
+    "phone": "+79180009199",
+    "git": "github.com/wlld"
+  },
+  {
+    "id": 3,
+    "surname": "Сидоров",
+    "name": "Артем",
+    "patronymic": "Артемович",
+    "tg": "@sidorov",
+    "email": "sid@mail.ru",
+    "phone": "+79991928899",
+    "git": "github.com/sid"
+  },
+  {
+    "id": 4,
+    "surname": "Рунов",
+    "name": "Денис",
+    "patronymic": "Владимирович",
+    "tg": "@runov",
+    "email": "runov@gmail.com",
+    "phone": "+79373098034",
+    "git": "github.com/runov"
+  },
+  {
+    "id": 5,
+    "surname": "Глушков",
+    "name": "Матвей",
+    "patronymic": "Александрович",
+    "tg": "@telegram",
+    "email": null,
+    "phone": "+70918333667",
+    "git": null
+  },
+  {
+    "id": 6,
+    "surname": "Петров",
+    "name": "Андрей",
+    "patronymic": "Геннадьевич",
+    "tg": "@onehjd",
+    "email": null,
+    "phone": "+79183336697",
+    "git": null
+  }
+]
