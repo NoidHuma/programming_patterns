@@ -24,11 +24,11 @@ class StudentListController
 	end
 	
 	def add()
-	
+		puts "Добавление записи"
 	end
 
 	def update()
-		refresh_data
+		self.refresh_data
 	end
 
 	def delete(indexes)

@@ -84,6 +84,7 @@ class StudentListView < FXVerticalFrame
         self.table.connect(SEL_SELECTED) { update_button_states }
         self.table.connect(SEL_DESELECTED) { update_button_states }
         update_button_states
+
     end
 
     def set_table_params(column_names, whole_entities_count)
@@ -167,7 +168,9 @@ class StudentListView < FXVerticalFrame
     end
   
     def on_update()
+        self.current_page_label = 1
         self.controller.update
+
     end
   
     def on_edit()
